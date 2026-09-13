@@ -10,7 +10,7 @@ CREATE TABLE Policy (
     issue_age       INTEGER NOT NULL,
     gender          TEXT NOT NULL CHECK (gender IN ('M', 'F')),
     smoker_status   TEXT NOT NULL CHECK (smoker_status IN ('Smoker', 'Nonsmoker')),
-    product_type    TEXT NOT NULL CHECK (product_type IN ('Term', 'Whole Life', 'Deferred Whole       	Life')),	
+    product_type    TEXT NOT NULL CHECK (product_type IN ('Term', 'Whole Life', 'Deferred Whole Life')),	
     face_amount     REAL NOT NULL,
     term_years      INTEGER,        -- only populated for Term policies
     deferral_years  INTEGER,        -- only populated for Deferred policies
