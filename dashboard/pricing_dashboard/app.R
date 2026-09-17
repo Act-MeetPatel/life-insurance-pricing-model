@@ -225,7 +225,72 @@ calculate_profit_margin <- function(cashflow_table, interest_rate) {
 }
 
 ui <- fluidPage(
-  titlePanel("Life Insurance Pricing Calculator"),
+  theme = bslib::bs_theme(
+    bootswatch = "flatly",
+    primary = "#1a5276",
+    secondary = "#7fb3d5"
+  ),
+  
+  tags$head(
+    tags$style(HTML("
+      body {
+        position: relative;
+      }
+      body::before {
+      content: '🛡️';
+      font-size: 500px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.15;
+      filter: brightness(0.5) contrast(1.3);
+      z-index: -1;
+      }
+      .well {
+        background-color: #f4f6f7;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .form-control {
+        border-radius: 8px;
+        transition: box-shadow 0.2s ease;
+      }
+      .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(26,82,118,0.2);
+      }
+      .btn {
+        border-radius: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      }
+      .result-card {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 20px;
+        max-width: 480px;
+      }
+      .footer {
+        position: fixed;
+        bottom: 15px;
+        right: 25px;
+        font-size: 12px;
+        color: #888;
+      }
+      h1 { color: #1a5276; }
+    "))
+  ),
+  
+  titlePanel(
+    div(
+      span("🛡️", style = "font-size: 32px; margin-right: 10px;"),
+      "Life Insurance Pricing Calculator"
+    )
+  ),
   
   sidebarLayout(
     sidebarPanel(
@@ -244,13 +309,21 @@ ui <- fluidPage(
         numericInput("deferral_years", "Deferral Period (years)", value = 5, min = 1, max = 20)
       ),
       
-      actionButton("calculate", "Calculate Premium")
+      actionButton("calculate", "Calculate Premium", class = "btn-primary")
     ),
     
     mainPanel(
-      h3("Results"),
-      verbatimTextOutput("premium_output")
+      div(
+        class = "result-card",
+        h3("Results"),
+        verbatimTextOutput("premium_output")
+      )
     )
+  ),
+  
+  div(
+    class = "footer",
+    "© 2026 Meet Patel. Life Insurance Pricing & Profit Testing Model. For illustrative and educational purposes only."
   )
 )
 
